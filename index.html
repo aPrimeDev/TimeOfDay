@@ -80,6 +80,13 @@
       .display-date p {
         margin: 0 5px;
       }
+
+      .footer {
+        position: absolute;
+        bottom: 10px;
+        font-size: 1.4rem;
+        color: #4a0d67;
+      }
     </style>
   </head>
   <body>
@@ -94,6 +101,8 @@
       <img id="time-image" src="" alt="Time of day image" />
     </div>
     <div class="display-time"></div>
+    <p>A Javascript Project By aPrimeDev (Amir Banks)</p>
+    <div class="footer" id="footer"></div>
 
     <script>
       const displayTime = document.querySelector(".display-time");
@@ -182,10 +191,18 @@
         document.body.style.backgroundColor = backgroundColor;
       }
 
+      // Update Footer with Dynamic Year
+      function updateFooter() {
+        const footer = document.getElementById("footer");
+        const currentYear = new Date().getFullYear();
+        footer.innerHTML = `© By Amir Banks, All Rights Reserved 2022-${currentYear}`;
+      }
+
       window.onload = function () {
         updateTimeBasedContent();
         showTime();
         updateDate();
+        updateFooter();
       };
     </script>
   </body>
