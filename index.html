@@ -1,59 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Time of Day</title>
-    <meta name="robots" content="noindex,nofollow">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time-Based Greetings</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
     <style>
-		* {padding:0; margin:0;}
-		html {background-color:#ccc;}
-		body {
-			font-family: Arial, Helvetica, sans-serif;
-			max-width:960px; /* keeps from getting too large on wide screen */
-			width:90%; /* shrink to fit screen */
-			margin:auto; /* center in html element */
-			background-color:#fff;
-			padding:20px;
-			min-height:100%; /* keeps from getting too large on wide screen */
-			}
-		img.flexible {
-			float:right;
-			display:inline-block;
-			padding:20px;
-			max-width:300px; /* actual size of image */
-			width:33%; /* approximate size taken on screen in maximum view */
-		}
-		p {margin:10px;}
-		h1,h2,h3,h4,h5,h6{
-			font-weight:normal;
-			margin:10px;
-			}
-		h1.masthead {margin-top:0;}
-		footer {
-			text-align:center;
-			clear:both; /* ride below all items */
-		}
+      @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+      html {
+        font-size: 62.5%;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Lato", sans-serif;
+        background: #daffed;
+        color: #473198;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .display-time {
+        display: flex;
+        font-size: 5rem;
+        font-weight: bold;
+        border: 2px solid #4a0d67;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: ease-in-out 0.1s;
+        transition-property: background, box-shadow, color;
+        -webkit-box-reflect: below 2px
+          linear-gradient(transparent, rgba(255, 255, 255, 0.05));
+        margin-bottom: 20px;
+        color: #4a0d67;
+      }
+
+      .display-time:hover {
+        background: #adfc92;
+        box-shadow: 0 0 30px #adfc92;
+        color: #daffed;
+        cursor: pointer;
+      }
+
+      .morning {
+        background-color: #daffed;
+      }
+
+      .afternoon {
+        background-color: #9bf3f0;
+      }
+
+      .evening {
+        background-color: #473198;
+        color: white;
+      }
+
+      .night {
+        background-color: #4a0d67;
+        color: white;
+      }
+
+      #greeting-container {
+        margin-bottom: 20px;
+        background: #9bf3f0;
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      #time-image {
+        width: 600px;
+        height: auto;
+        margin-bottom: 20px;
+      }
+
+      .display-date {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #473198;
+      }
+
+      .display-date p {
+        margin: 0 5px;
+      }
     </style>
-</head>
-<body>
-	<header>
-		<h1 class="masthead">Time of Day</h1>
-	</header>
-    <main>
-	 <header><h3>A JavaScript Project by YOUR NAME HERE</h3></header>
-	    <p>Explain what your page does and how it works here!</p>
-	  <img src="http://dummyimage.com/300x400" alt="Time of Day Image" class="flexible">
-     <footer>
-      <p><small>&copy; 2022 by 
-          YOUR NAME HERE, All Rights Reserved ~ 
-          <a id="html-checker" href="#" target="_blank">Check HTML</a> ~ 
-          <a id="css-checker" href="#" target="_blank">Check CSS</a></small>
-     </p>
-    </footer>
-  </main>
- <script>
-    document.getElementById("html-checker").setAttribute("href","https://validator.w3.org/nu/?doc=" + location.href);
-    document.getElementById("css-checker").setAttribute("href","https://jigsaw.w3.org/css-validator/validator?uri=" + location.href);  
- </script>
-</body>
+  </head>
+  <body>
+    <div id="greeting-container">
+      <h1 id="greeting"></h1>
+      <div class="display-date">
+        <p id="day"></p>
+        <p id="month"></p>
+        <p id="daynum"></p>
+        <p id="year"></p>
+      </div>
+      <img id="time-image" src="" alt="Time of day image" />
+    </div>
+    <div class="display-time"></div>
+ 
+      <p id="copyright"><span id="copyright-year"></span> By aPrimeDev (Amir Banks)</p>
+    </div>
+  
+
+    <script>
+      const displayTime = document.querySelector(".display-time");
+
+      // Time
+      function showTime() {
+        let time = new Date();
+        displayTime.innerText = time.toLocaleTimeString("en-US", {
+          hour12: false,
+        });
+        setTimeout(showTime, 1000);
+      }
+
+      showTime();
+
+      // Date
+      function updateDate() {
+        let today = new Date();
+
+        let dayName = today.getDay(),
+          dayNum = today.getDate(),
+          month = today.getMonth(),
+          year = today.getFullYear();
+
+        const months = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        const dayWeek = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
+
+        const IDCollection = ["day", "month", "daynum", "year"];
+        const val = [dayWeek[dayName], months[month], dayNum, year];
+        for (let i = 0; i < IDCollection.length; i++) {
+          document.getElementById(IDCollection[i]).innerText = val[i];
+        }
+      }
+
+      updateDate();
+
+      // Greeting, Image, and Background Color based on Time of Day
+      function updateTimeBasedContent() {
+        const now = new Date();
+        const hour = now.getHours();
+        const greetingContainer = document.getElementById("greeting-container");
+        const greeting = document.getElementById("greeting");
+        const timeImage = document.getElementById("time-image");
+        let message, imageUrl, className;
+
+        if (hour >= 5 && hour < 12) {
+          message = "Good Morning!";
+          imageUrl = "images/MorningRand.jpg"; // Morning image
+          className = "morning";
+        } else if (hour >= 12 && hour < 18) {
+          message = "Good Afternoon!";
+          imageUrl = "images/AfternoonSky.jpg"; // Afternoon image randomly chosen
+          className = "afternoon";
+        } else if (hour >= 18 && hour < 23) {
+          message = "Good Evening!";
+          imageUrl = "images/EveningEats.jpg"; // Dinnertime Image
+          className = "evening";
+        } else {
+          message = "Good Night!";
+          imageUrl = "images/NightJake.jpg"; // Night Image From AdventureTime
+          className = "night";
+        }
+
+        greeting.innerText = message;
+        timeImage.src = imageUrl;
+        document.body.className = className;
+      }
+
+      window.onload = function () {
+        updateTimeBasedContent();
+        showTime();
+        updateDate();
+      };
+    </script>
+  </body>
 </html>
