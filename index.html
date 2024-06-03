@@ -23,7 +23,6 @@
 
       body {
         font-family: "Lato", sans-serif;
-        background: #daffed;
         color: #473198;
         display: flex;
         justify-content: center;
@@ -31,6 +30,7 @@
         height: 100vh;
         flex-direction: column;
         text-align: center;
+        transition: background-color 0.5s;
       }
 
       .display-time {
@@ -53,24 +53,6 @@
         box-shadow: 0 0 30px #adfc92;
         color: #daffed;
         cursor: pointer;
-      }
-
-      .morning {
-        background-color: #daffed;
-      }
-
-      .afternoon {
-        background-color: #9bf3f0;
-      }
-
-      .evening {
-        background-color: #473198;
-        color: white;
-      }
-
-      .night {
-        background-color: #4a0d67;
-        color: white;
       }
 
       #greeting-container {
@@ -112,10 +94,6 @@
       <img id="time-image" src="" alt="Time of day image" />
     </div>
     <div class="display-time"></div>
- 
-      <p id="copyright"><span id="copyright-year"></span> By aPrimeDev (Amir Banks)</p>
-    </div>
-  
 
     <script>
       const displayTime = document.querySelector(".display-time");
@@ -177,32 +155,31 @@
       function updateTimeBasedContent() {
         const now = new Date();
         const hour = now.getHours();
-        const greetingContainer = document.getElementById("greeting-container");
         const greeting = document.getElementById("greeting");
         const timeImage = document.getElementById("time-image");
-        let message, imageUrl, className;
+        let message, imageUrl, backgroundColor;
 
         if (hour >= 5 && hour < 12) {
           message = "Good Morning!";
-          imageUrl = "images/MorningRand.jpg"; // Morning image
-          className = "morning";
+          imageUrl = "images/MorningRand.jpg"; // Replace with your morning image URL
+          backgroundColor = "#DAFFED";
         } else if (hour >= 12 && hour < 18) {
           message = "Good Afternoon!";
-          imageUrl = "images/AfternoonSky.jpg"; // Afternoon image randomly chosen
-          className = "afternoon";
+          imageUrl = "images/AfternoonSky.jpg"; // Replace with your afternoon image URL
+          backgroundColor = "#9BF3F0";
         } else if (hour >= 18 && hour < 23) {
           message = "Good Evening!";
-          imageUrl = "images/EveningEats.jpg"; // Dinnertime Image
-          className = "evening";
+          imageUrl = "images/EveningEats.jpg"; // Replace with your evening image URL
+          backgroundColor = "#473198";
         } else {
           message = "Good Night!";
-          imageUrl = "images/NightJake.jpg"; // Night Image From AdventureTime
-          className = "night";
+          imageUrl = "images/NightJake.jpg"; // Replace with your night image URL
+          backgroundColor = "#4A0D67";
         }
 
         greeting.innerText = message;
         timeImage.src = imageUrl;
-        document.body.className = className;
+        document.body.style.backgroundColor = backgroundColor;
       }
 
       window.onload = function () {
